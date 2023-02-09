@@ -2,7 +2,7 @@
 	<div class="home">
 		<galery-search />
 		<div class="container home__container">
-			<galery-image-grid v-if="images" :images="images" />
+			<galery-image-grid v-if="images" :images="images || []" />
 		</div>
 	</div>
 </template>

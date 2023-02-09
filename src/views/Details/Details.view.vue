@@ -5,13 +5,13 @@
 				<div class="user">
 					<div class="user__icon">
 						<img
-							:src="image.user.profile_image.medium"
+							:src="image.user?.profile_image.medium"
 							alt="image.alt_description"
 						/>
 					</div>
 					<div class="user__info">
-						<span>{{ image.user.name }}</span>
-						<span>@{{ image.user.username }}</span>
+						<span>{{ image.user?.name }}</span>
+						<span>@{{ image.user?.username }}</span>
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			image: state => state.images.images,
+			image: state => state.images.selectedImage,
 		}),
 		photoId() {
 			return this.$route.params.id

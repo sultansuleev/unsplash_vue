@@ -21,7 +21,7 @@ export default {
 	props: {
 		images: {
 			type: [Array],
-			required: true,
+			required: false,
 		},
 	},
 	components: {

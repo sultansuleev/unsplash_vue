@@ -1,9 +1,14 @@
 import imagesApi from '@/api/images'
 
-const state = {
-	isLoading: false,
-	images: null,
+const getDefaultState = () => {
+	return {
+		isLoading: false,
+		images: null,
+		selectedImage: null,
+	}
 }
+
+const state = getDefaultState()
 
 export const mutationTypes = {
 	getRandomImagesStart: '[Images] getRandomImages start',
@@ -27,11 +32,15 @@ export const actionTypes = {
 
 export const getterTypes = {
 	images: '[Images] Images',
+	selectedImage: '[Images] Selected Image',
 }
 
 const getters = {
 	[getterTypes.randomImages]: state => {
 		return state.randomImages
+	},
+	[getterTypes.selectedImage]: state => {
+		return state.selectedImage
 	},
 }
 
@@ -64,11 +73,12 @@ const mutations = {
 
 	[mutationTypes.getImageDetailsStart](state) {
 		state.images = null
+		state.selectedImage = null
 		state.isLoading = true
 		state.validationErrors = null
 	},
 	[mutationTypes.getImageDetailsSuccess](state, payload) {
-		state.images = payload
+		state.selectedImage = payload
 		state.isLoading = false
 	},
 	[mutationTypes.getImageDetailsFailure](state) {

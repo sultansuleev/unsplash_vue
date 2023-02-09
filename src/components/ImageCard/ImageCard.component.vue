@@ -16,7 +16,7 @@ export default {
 	props: {
 		image: {
 			type: Object,
-			required: true,
+			required: false,
 		},
 		classNames: {
 			type: String,
