@@ -1,7 +1,8 @@
 <template>
 	<div class="home">
+		<galery-search />
 		<div class="container home__container">
-			<galery-image-grid v-if="randomImages" :images="randomImages" />
+			<galery-image-grid v-if="images" :images="images" />
 		</div>
 	</div>
 </template>
@@ -14,16 +15,18 @@
 import { mapState } from 'vuex'
 
 import GaleryImageGrid from '@/components/ImageGrid/ImageGrid.component.vue'
+import GalerySearch from '@/components/Search/Search.component.vue'
 import { actionTypes } from '@/store/modules/images'
 
 export default {
 	name: 'HomeView',
 	components: {
 		GaleryImageGrid,
+		GalerySearch,
 	},
 	computed: {
 		...mapState({
-			randomImages: state => state.images.images,
+			images: state => state.images.images,
 		}),
 	},
 	mounted() {
