@@ -1,0 +1,42 @@
+.details {
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+
+	&__container {
+		margin: auto;
+		padding: 46px 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		margin-top: 50px;
+	}
+}
+
+.user {
+	display: flex;
+	flex-direction: row;
+
+	&__icon {
+		width: 55px;
+		height: 55px;
+
+		img {
+			border-radius: 8px;
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-left: 10px;
+	}
+}

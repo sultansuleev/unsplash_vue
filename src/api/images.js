@@ -31,4 +31,17 @@ const searchPhotos = credentials => {
 	return axios.get(urlWithParams)
 }
 
-export default { getRandomPhotos, searchPhotos }
+const getPhotoDetails = credentials => {
+	const apiUrl = `/photos/${credentials}`
+	const parsedUrl = queryString.parseUrl(apiUrl)
+	const queryParams = {
+		client_id: environment.accessKey,
+		...parsedUrl.query,
+	}
+	const stringifiedQueryParams = queryString.stringify(queryParams)
+	const urlWithParams = `${parsedUrl.url}?${stringifiedQueryParams}`
+
+	return axios.get(urlWithParams)
+}
+
+export default { getRandomPhotos, searchPhotos, getPhotoDetails }

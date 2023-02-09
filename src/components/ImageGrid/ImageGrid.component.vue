@@ -4,6 +4,7 @@
 			v-for="(image, index) in images"
 			:key="index"
 			:image="image"
+			:class-names="'thumb'"
 		/>
 	</div>
 </template>

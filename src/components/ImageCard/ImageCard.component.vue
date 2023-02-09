@@ -1,7 +1,9 @@
 <template>
-	<div class="image-card">
-		<img :src="image.urls.regular" alt="image.alt_description" />
-	</div>
+	<router-link :to="{ name: 'details', params: { id: image.id } }">
+		<div class="image-card" :class="classNames">
+			<img :src="image.urls.regular" alt="image.alt_description" />
+		</div>
+	</router-link>
 </template>
 
 <style lang="scss">
@@ -15,6 +17,10 @@ export default {
 		image: {
 			type: Object,
 			required: true,
+		},
+		classNames: {
+			type: String,
+			required: false,
 		},
 	},
 }

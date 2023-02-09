@@ -1,8 +1,10 @@
 .image-card {
-	width: 350px;
-	height: 350px;
-
 	img {
 		border-radius: 8px;
+	}
+
+	&.thumb {
+		width: 350px;
+		height: 350px;
 	}
 }
