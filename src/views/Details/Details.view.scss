@@ -50,6 +50,11 @@
 
 		flex-direction: row;
 	}
+
+	&__actions {
+		display: flex;
+		align-items: center;
+	}
 }
 
 .user {

@@ -1,13 +1,15 @@
 <template>
-	<div class="details" v-if="image">
+	<div class="details">
+		<galery-loader v-if="isLoading" />
 		<div
 			class="details__bg"
 			:style="{
 				'background-image': `url(${image?.urls?.regular}) `,
 			}"
+			v-if="image"
 		></div>
 
-		<div class="container details__container">
+		<div class="container details__container" v-if="image">
 			<div class="details__info">
 				<div class="user">
 					<div class="user__icon">
@@ -24,6 +26,7 @@
 
 				<div class="details__actions">
 					<galery-favourite-button :liked="liked" @onToggle="toggle" />
+					<galery-download-button @onClick="download" />
 				</div>
 			</div>
 
@@ -39,38 +42,46 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import GaleryImageCard from '@/components/ImageCard/ImageCard.component.vue'
 import GaleryFavouriteButton from '@/components/FavouriteButton/FavouriteButton.component.vue'
-import { actionTypes } from '@/store/modules/images'
+import GaleryLoader from '@/components/Loader/Loader.component'
+import GaleryDownloadButton from '@/components/DownloadButton/DownloadButton.component.vue'
+import { actionTypes, getterTypes } from '@/store/modules/images'
 
 export default {
 	name: 'DetailsView',
 	components: {
 		GaleryImageCard,
 		GaleryFavouriteButton,
+		GaleryDownloadButton,
+		GaleryLoader,
 	},
 	computed: {
 		...mapState({
 			image: state => state.images.selectedImage,
+			isLoading: state => state.images.isLoading,
 			savedImages: state => state.images.savedImages,
+		}),
+		...mapGetters({
+			liked: getterTypes.getSavedImages,
 		}),
 		photoId() {
 			return this.$route.params.id
 		},
-		liked() {
-			return this.savedImages.includes(this.image)
-		},
 	},
 	mounted() {
-		console.log(this.photoId)
 		this.$store.dispatch(actionTypes.getImageDetails, this.photoId)
 	},
 	methods: {
 		toggle() {
-			console.log('Do')
+			console.log('savedImages', this.savedImages)
+			console.log('image', this.image)
 			this.$store.dispatch(actionTypes.saveImage, this.image)
+		},
+		download() {
+			alert('Download')
 		},
 	},
 }

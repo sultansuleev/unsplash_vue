@@ -38,6 +38,7 @@ export const getterTypes = {
 	images: '[Images] Images',
 	selectedImage: '[Images] Selected Image',
 	savedImages: '[Images] Saved Images',
+	getSavedImages: '[Images] Get Saved Images',
 }
 
 const getters = {
@@ -49,6 +50,11 @@ const getters = {
 	},
 	[getterTypes.savedImages]: state => {
 		return state.savedImages
+	},
+	[getterTypes.getSavedImages]: state => {
+		return Boolean(
+			state.savedImages.find(img => img.id === state.selectedImage.id)
+		)
 	},
 }
 
@@ -94,11 +100,10 @@ const mutations = {
 	},
 
 	[mutationTypes.saveImage](state, payload) {
-		if (state.savedImages.includes(payload)) {
+		if (state.savedImages.find(img => img.id === state.selectedImage.id)) {
 			state.savedImages = state.savedImages.filter(i => {
 				i.id !== payload.id
 			})
-			return
 		}
 
 		state.savedImages.push(payload)
@@ -112,7 +117,6 @@ const actions = {
 			imagesApi
 				.getRandomPhotos()
 				.then(response => {
-					console.log(response.data)
 					context.commit(mutationTypes.getRandomImagesSuccess, response.data)
 					resolve(response.data)
 				})
@@ -125,11 +129,10 @@ const actions = {
 
 	[actionTypes.searchImages](context, credentials) {
 		return new Promise(resolve => {
-			context.commit(mutationTypes.getRandomImagesStart)
+			context.commit(mutationTypes.searchImagesStart)
 			imagesApi
 				.searchPhotos(credentials)
 				.then(response => {
-					console.log(response.data)
 					context.commit(
 						mutationTypes.searchImagesSuccess,
 						response.data.results
@@ -149,7 +152,6 @@ const actions = {
 			imagesApi
 				.getPhotoDetails(credentials)
 				.then(response => {
-					console.log(response.data)
 					context.commit(mutationTypes.getImageDetailsSuccess, response.data)
 					resolve(response.data)
 				})
@@ -163,7 +165,6 @@ const actions = {
 	[actionTypes.saveImage](context, credentials) {
 		return new Promise(resolve => {
 			context.commit(mutationTypes.saveImage, credentials)
-			console.log(state.savedImages)
 
 			resolve(credentials)
 		})

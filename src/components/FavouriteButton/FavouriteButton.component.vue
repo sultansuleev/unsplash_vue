@@ -1,6 +1,6 @@
 <template>
 	<button class="btn fav-btn" @click="favToggle">
-		<img :src="imagePath" alt="" />
+		<img :src="imagePath" class="icon" />
 	</button>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 	props: {
 		liked: {
 			type: Boolean,
-			required: false,
+			required: true,
 		},
 		classNames: {
 			type: String,

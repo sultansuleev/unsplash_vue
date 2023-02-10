@@ -8,7 +8,7 @@
 			<div class="navbar__item">
 				<router-link
 					class="navbar__link"
-					:to="{ name: 'favourites' }"
+					:to="{ name: 'liked' }"
 					exact
 					active-class="active"
 				>

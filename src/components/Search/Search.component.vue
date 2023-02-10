@@ -30,9 +30,8 @@ export default {
 	},
 	watch: {
 		query: debounce(function (res) {
-			console.log(res)
 			this.$store.dispatch(actionTypes.searchImages, res)
-		}, 500),
+		}, 1000),
 	},
 }
 </script>
