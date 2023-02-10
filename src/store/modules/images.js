@@ -3,8 +3,9 @@ import imagesApi from '@/api/images'
 const getDefaultState = () => {
 	return {
 		isLoading: false,
-		images: null,
+		images: [],
 		selectedImage: null,
+		savedImages: [],
 	}
 }
 
@@ -22,17 +23,21 @@ export const mutationTypes = {
 	getImageDetailsStart: '[Images] getImageDetails start',
 	getImageDetailsSuccess: '[Images] getImageDetails success',
 	getImageDetailsFailure: '[Images] getImageDetails failure',
+
+	saveImage: '[Images] saveImage',
 }
 
 export const actionTypes = {
 	getRandomImages: '[Images] Get Random Images',
 	searchImages: '[Images] Search Images',
 	getImageDetails: '[Images] Get Image Details',
+	saveImage: '[Images] Save Image',
 }
 
 export const getterTypes = {
 	images: '[Images] Images',
 	selectedImage: '[Images] Selected Image',
+	savedImages: '[Images] Saved Images',
 }
 
 const getters = {
@@ -41,6 +46,9 @@ const getters = {
 	},
 	[getterTypes.selectedImage]: state => {
 		return state.selectedImage
+	},
+	[getterTypes.savedImages]: state => {
+		return state.savedImages
 	},
 }
 
@@ -83,6 +91,17 @@ const mutations = {
 	},
 	[mutationTypes.getImageDetailsFailure](state) {
 		state.isLoading = false
+	},
+
+	[mutationTypes.saveImage](state, payload) {
+		if (state.savedImages.includes(payload)) {
+			state.savedImages = state.savedImages.filter(i => {
+				i.id !== payload.id
+			})
+			return
+		}
+
+		state.savedImages.push(payload)
 	},
 }
 
@@ -138,6 +157,15 @@ const actions = {
 					console.log(result)
 					context.commit(mutationTypes.getImageDetailsFailure)
 				})
+		})
+	},
+
+	[actionTypes.saveImage](context, credentials) {
+		return new Promise(resolve => {
+			context.commit(mutationTypes.saveImage, credentials)
+			console.log(state.savedImages)
+
+			resolve(credentials)
 		})
 	},
 }

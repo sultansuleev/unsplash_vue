@@ -2,6 +2,29 @@
 	width: 100%;
 	height: 100%;
 	justify-content: center;
+	position: relative;
+
+	&__bg {
+		height: 700px;
+		position: absolute;
+		left: 0;
+		right: 0;
+		z-index: 1;
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		&:before {
+			content: ' ';
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			backdrop-filter: blur(4px);
+		}
+	}
 
 	&__container {
 		margin: auto;
@@ -9,6 +32,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+		position: relative;
+		z-index: 2;
 	}
 
 	&__image {
@@ -17,6 +42,13 @@
 		display: flex;
 		justify-content: center;
 		margin-top: 50px;
+	}
+
+	&__info {
+		display: flex;
+		justify-content: space-between;
+
+		flex-direction: row;
 	}
 }
 
@@ -38,5 +70,6 @@
 		flex-direction: column;
 		justify-content: center;
 		margin-left: 10px;
+		color: #f2f2f2;
 	}
 }
