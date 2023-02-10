@@ -99,14 +99,18 @@ const mutations = {
 		state.isLoading = false
 	},
 
-	[mutationTypes.saveImage](state, payload) {
-		if (state.savedImages.find(img => img.id === state.selectedImage.id)) {
-			state.savedImages = state.savedImages.filter(i => {
-				i.id !== payload.id
-			})
+	[mutationTypes.saveImage](state) {
+		const targetedImage = state.savedImages.findIndex(
+			img => img.id === state.selectedImage.id
+		)
+
+		if (~targetedImage) {
+			state.savedImages.splice(targetedImage, 1)
+
+			return
 		}
 
-		state.savedImages.push(payload)
+		state.savedImages.push(state.selectedImage)
 	},
 }
 
